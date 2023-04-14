@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О Котофеиче</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/stylepage.css">
+</head>
+<body>
+    <h1>Знакомьтесь,</h1>
+    
+    <div class="info">
+    </div>
+    <script>
+        console.log(location);
+        let id = location.search.split("=");
+        id = id[id.length - 1];
+        console.log(id);
+        const box = document.querySelector(".info");
+
+        let user = localStorage.getItem("cat12"); // имя пользователя
+        if (!user) {
+            user = prompt("Ваше уникальное имя: ", "mariachepeleva");
+            localStorage.setItem("cat12", user);
+        }
+
+        const path = `https://cats.petiteweb.dev/api/single/${user}`;
+
+        fetch(`${path}/show/${id}`)
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(data => {
+                box.innerHTML = `<h2>${data.name}</h2>`
+            })
+    </script>
+</body>
+</html>
